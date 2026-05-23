@@ -1,0 +1,87 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Smart Weigh Hub API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001"
+    }
+  ],
+  "paths": {
+    "/bt/reading": {
+      "post": {
+        "summary": "Ingest weight reading from device",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "deviceId": { "type": "string" },
+                  "weight": { "type": "number" },
+                  "unit": { "type": "string" }
+                },
+                "required": ["deviceId", "weight"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Reading saved" }
+        }
+      }
+    },
+    "/bt/latest/{deviceId}": {
+      "get": {
+        "summary": "Get latest reading for a device",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Latest reading" }
+        }
+      }
+    },
+    "/billing/create": {
+      "post": {
+        "summary": "Create a bill with items and tax",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "billNo": { "type": "string" },
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": { "type": "string" },
+                        "quantity": { "type": "number" },
+                        "unitPrice": { "type": "number" }
+                      }
+                    }
+                  },
+                  "taxPercent": { "type": "number" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Bill created" }
+        }
+      }
+    }
+  }
+}

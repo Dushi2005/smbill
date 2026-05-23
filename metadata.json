@@ -1,0 +1,7 @@
+{
+  "name": "Smart Weigh Hub",
+  "description": "An application to assist with kitchen tasks like quantity analysis, recipe guidance, and billing, designed to integrate with an IoT weighing scale.",
+  "requestFramePermissions": [
+    "bluetooth"
+  ]
+}
